@@ -1,0 +1,397 @@
+<html lang="hu"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="hattér.jfif">
+	<meta name="description" content="Home Page">  
+	<meta name="author" content="!.Olivér">
+    <title>!.Olivér-website</title>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .overlay span {
+            font-size: 24px;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .content {
+            display: none;
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 72px;
+            margin-bottom: 0;
+        }
+
+        .icons {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #e0e0e0;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 50%;
+            transition: color 0.3s, transform 0.3s, background-color 0.3s;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .icons a i {
+            font-size: 20px;
+            line-height: inherit;
+        }
+
+        .icons a:hover {
+            color: #3e5a19;
+            background-color: #444;
+            transform: scale(1.2);
+        }
+
+        .about {
+            margin-top: 40px;
+            text-align: center; 
+            max-width: 600px; 
+            background-color: #1f1f1f;
+            padding: 30px; 
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: inline-block; 
+        }
+
+        .about h2 {
+            color: #3e5a19;
+            font-size: 36px; 
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: #e0e0e0;
+            font-size: 18px; 
+        }
+
+       
+        .notify {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 20;
+            text-align: center;
+            display: none;
+        }
+
+        .notify.show {
+            display: block;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        
+        .floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .floating-icons i {
+            position: absolute;
+            font-size: 1.2rem; 
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-30px) rotate(360deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+        }
+
+        
+        .icon1 { top: 5%; left: 10%; }
+        .icon2 { top: 15%; left: 25%; }
+        .icon3 { top: 25%; left: 40%; }
+        .icon4 { top: 35%; left: 55%; }
+        .icon5 { top: 45%; left: 70%; }
+        .icon6 { top: 55%; left: 85%; }
+        .icon7 { top: 65%; left: 15%; }
+        .icon8 { top: 75%; left: 30%; }
+        .icon9 { top: 85%; left: 45%; }
+        .icon10 { top: 20%; left: 60%; }
+        .icon11 { top: 30%; left: 75%; }
+        .icon12 { top: 40%; left: 20%; }
+        .icon13 { top: 50%; left: 35%; }
+        .icon14 { top: 60%; left: 50%; }
+        .icon15 { top: 70%; left: 65%; }
+        .icon16 { top: 80%; left: 80%; }
+
+
+
+.settings-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 20;
+}
+
+.settings {
+    background-color: #333;
+    color: #e0e0e0;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.settings:focus, .settings:active {
+    outline: none; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.settings:hover {
+    background-color: #444;
+    transform: scale(1.1);
+}
+
+
+.settings-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    z-index: 30;
+    min-width: 200px;
+}
+
+.settings-menu a {
+    color: #e0e0e0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+.settings-menu a:hover {
+    background-color: #333;
+    color: #3e5a19;
+}
+
+.settings-menu i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+
+
+
+.settings-menu .toggle-music {
+    cursor: pointer;
+}
+
+
+.link-container {
+    display: none; 
+    margin-top: 20px;
+}
+
+.link-container a {
+    color: #3e5a19;     
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.link-container a:hover {
+    color: #ffffff;
+}
+
+
+    </style>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>!.Olivér-website</title>
+        
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        
+        <style>
+            
+        </style>
+    
+    <body>
+    
+        
+        <div class="floating-icons">
+            <i class="fab fa-github icon1"></i>
+            <i class="fas fa-envelope icon2"></i>
+            <i class="fab fa-steam icon3"></i>
+            <i class="fab fa-discord icon4"></i>
+            <i class="fab fa-instagram icon5"></i>
+            <i class="fab fa-twitter icon6"></i>
+            <i class="fab fa-linkedin icon7"></i>
+            <i class="fab fa-reddit icon8"></i>
+            <i class="fab fa-youtube icon9"></i>
+            <i class="fab fa-twitch icon10"></i>
+            <i class="fab fa-pinterest icon11"></i>
+            <i class="fab fa-tiktok icon12"></i>
+            <i class="fab fa-snapchat icon13"></i>
+            <i class="fab fa-whatsapp icon14"></i>
+            <i class="fab fa-telegram icon15"></i>
+            <i class="fab fa-medium icon16"></i>
+        </div>
+    
+        <div class="overlay" onclick="startSite()" style="display: none;">
+            <span>Click to enter</span>
+        </div>
+    
+        <div class="content" style="display: block;">
+            <h1>Olivér</h1>
+            <div class="icons">
+                <a href="mailto:oroxin2009@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://steamcommunity.com/id/olivertuz" title="Steam"><i class="fab fa-steam"></i></a>
+                <a href="https://www.instagram.com/oliver23167/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" onclick="copyToClipboard()" title="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+            <div class="about">
+                <h2>About me</h2>
+                <p>Szia. Olivér vagyok 15 éves. Fivem Designer.  </p>
+            </div>
+        </div>
+    
+        <div id="notify" class="notify">Discord name copied to clipboard!</div>
+    
+        <audio id="background-music" loop="">
+            <source src="Tanir & Tyomcha - Da Da Da (jarico remix) (Speed up).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    
+        <div class="settings-container">
+            <button class="settings" onclick="toggleMenu()"><i class="fas fa-cog"></i></button>
+            <div id="settings-menu" class="settings-menu">
+                <a href="#" onclick="toggleMusic()">
+                    <i class="fas fa-music"></i> Toggle Music
+                </a>
+            </div>
+        </div>
+        
+    
+        <script>
+            let isMusicPlaying = true;
+        
+            function startSite() {
+                document.querySelector('.overlay').style.display = 'none';
+                document.querySelector('.content').style.display = 'block';
+                var audio = document.getElementById("background-music");
+                audio.volume = 0.2;
+                audio.play();
+            }
+        
+            function copyToClipboard() {
+                const text = "oliver00011";
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification();
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+        
+            function showNotification() {
+                const notify = document.getElementById("notify");
+                notify.classList.add("show");
+                setTimeout(() => {
+                    notify.classList.remove("show");
+                }, 3000); 
+            }
+        
+            function toggleMusic() {
+                var audio = document.getElementById("background-music");
+                if (isMusicPlaying) {
+                    audio.pause();
+                    isMusicPlaying = false;
+                } else {
+                    audio.play();
+                    isMusicPlaying = true;
+                }
+            }
+        
+            function toggleMenu() {
+                const menu = document.getElementById('settings-menu');
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            }
+        </script>
+    
+    
+    
+    </body></html>
